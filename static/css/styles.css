@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* HOME */
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* nav bar */
+header {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* top navbar */
+.top {
+    background-color: #E6E6E6;
+}
+
+.top #logo {
+    display: inline;
+    height: 30px;
+    width: 100px;
+}
+
+.top ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.top li:first-child {
+    margin-right: auto;
+    display: flex;
+}
+
+.top li:first-child img {
+    display: none;
+}
+
+.top li {
+    margin: 0.5em;
+    pointer-events: auto;
+}
+
+/* side navbar */
+.side {
+    background-color: #E6E6E6;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    transition: width 0.15s;
+}
+
+.side li a {
+    text-decoration: none;
+    color: black;
+}
+
+.side ul {
+    list-style-type: none;
+    padding: 0;
+} 
+
+.side li {
+    padding: 1em;
+    pointer-events: auto;
+    transition: background-color 0.3s;
+}
+
+.side li:hover {
+    background-color: #cfcfcf;
+}
+
+.side ul:first-child li:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* break */
+
+.side ul:first-child li:nth-child(2) span{
+    display: none;
+}
+
+.side ul:first-child li:nth-child(2) a{
+    display: flex;
+    align-items: center;
+}
+
+.side ul:first-child li:nth-child(3) span{
+    display: none;
+}
+
+.side ul:first-child li:nth-child(3) a{
+    display: flex;
+    align-items: center;
+}
+
+.side ul:first-child li:nth-child(4) span{
+    display: none;
+}
+
+.side ul:first-child li:nth-child(4) a{
+    display: flex;
+    align-items: center;
+}
+
+.side ul:first-child li:nth-child(5) span{
+    display: none;
+}
+
+.side ul:first-child li:nth-child(5) a{
+    display: flex;
+    align-items: center;
+}
+
+.side ul:last-child li:nth-child(1) span{
+    display: none;
+}
+
+.side ul:last-child li:nth-child(1) a{
+    display: flex;
+    align-items: center;
+}
+
+.side ul:last-child li:nth-child(2) span{
+    display: none;
+}
+
+.side ul:last-child li:nth-child(2) a{
+    display: flex;
+    align-items: center;
+}
+
+/* when side navbar is expanded */
+.side.expanded {
+    width: 200px;
+    transition: width 0.15s;
+    #btn {
+        margin-left: auto;
+        transform: scaleX(-1);
+    }
+    #join span, #book span, #exericse span, #resources span, #logout span, #settings span {
+        display: inline;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* main content */
+.content {
+    margin-left: 80px;
+    margin-top: 60px;
+    transition: margin-left 0.5s;
+    pointer-events: auto;
+}
+
+.meetings .heading {
+    display: flex;
+    align-items: center;
+}
+
+.meetings .heading h1 {
+    margin-right: auto;
+}
+
+.meetings .heading a {
+    color: #147EFB;
+}
+
+.meetings {
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    margin-right: 25px;
+}
+
+.meetings .box {
+    background-color: #5BB0CF;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 1em;
+    transition: background-color 0.5s; /* Add a smooth transition for the hover effect */
+}
+
+.meetings ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.meetings ul li div p {
+    margin: 0.2em;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile p {
+    margin-left: 0.5em;
+}
+
+/* mobile-menu */
+.mobile-menu {
+    background-color: #E6E6E6;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    z-index: 1000;
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    display: none;
+}
+
+.mobile-menu ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.mobile-menu ul:first-child li:first-child{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mobile-menu ul:first-child li:first-child img {
+    margin: 0.5em 0;
+    margin-right: 0.5em;
+}
+
+.mobile-menu li {
+    pointer-events: auto;
+}
+
+.mobile-menu li a {
+    margin: 1em;
+    align-items: center;
+    display: flex;
+}
+
+@media (max-width: 480px) {
+    .side {
+        display: none;
+    }
+    .content {
+        margin-left: 1.1em;
+        margin-top: 4em;
+    }
+    .top li:first-child img {
+        display: inline;
+    }
+    .top li:first-child h1 {
+        margin-left: 0.3em;
+    }
+    .home-menu .upper ul, .home-menu .lower ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .home-menu li .button {
+        padding: 20px 0;
+    }
+    .top #logo {
+        height: 20px;
+        margin-left: 0.3em;
+        margin-top: 0.1em;
+        width: 80px;
+    }
+    .home-menu {
+        overflow-y: auto; /* Add this line for smaller screens */
+    }
+}
+
+.mobile-menu.expanded {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.home-menu {
+    margin-top: 1em;
+    margin-right: 1.5em;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1em;
+    overflow-y: auto;
+}
+
+.home-menu .upper ul, .home-menu .lower ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.home-menu li {
+    flex: 1;
+}
+
+.home-menu h3 {
+    font-weight: normal;
+}
+
+.home-menu li .button {
+    border-radius: 10px;
+    margin: 0.3em;
+    background-color: #E6E6E6;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s;
+}
+
+.home-menu .button:hover {
+    background-color: #cfcfcf;
+}
+
+.home-menu img {
+    height: 50px;
+    width: 50px;
+}
+
+.home-menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.mobile-menu li a {
+    text-decoration: none;
+    color: black;
+}
