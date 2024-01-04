@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/booking.css">
+    <title>Solvify - Booking</title>
+    <style>
+        @media (max-width: 480px) {
+            .content {
+                margin-top: 5em;
+            }
+        }
+
+        body {
+            background-image: url('/static/img/background.png');
+        }
+
+        .content p {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <header>
+        <nav class="top">
+            <ul>
+                <li>
+                    <img src="/static/img/menu.svg" alt="" id="hamburger">
+                    <a href="/"><img src="/static/img/logo.png" alt="" height="25px" width="75px" id="logo"></a>
+                </li>
+                <li><input type="text" placeholder="Search"></li>
+                <li><a href="#"><img src="/static/img/Profile.svg" alt="Profile"></a></li>
+            </ul>
+        </nav>
+        <nav class="mobile-menu">
+            <ul>
+                <li><img src="/static/img/back.svg" alt="" id="back-btn"></li>
+                <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                <li id="book"><a href="/booking"><img src="/static/img/Schedule.svg" alt=""><span style="margin-left: 1em;"></span><span>Book a meeting</span></a></li>
+                <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+            </ul>
+            <ul>
+                <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+            </ul>
+        </nav>
+        <nav class="side">
+            <ul>
+                <li id="btn"><img src="/static/img/arrow-right.svg" alt=""></li>
+                <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                <li id="book"><a href="/booking"><img src="/static/img/Schedule.svg" alt=""><span style="margin-left: 1em;"></span><span>Book a meeting</span></a></li>
+                <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+            </ul>
+            <ul>
+                <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <p id="dropdown">Select a tutor:
+            <span>
+                <select name="tutors" id="tutors">
+                    <option value="daniel">Daniel</option>
+                    <option value="tristan">Tristan</option>
+                </select>
+            </span>
+        </p>
+        <!-- <label for="studentSelect">Select a student:</label>
+                    <select name="studentSelect" id="studentSelect">
+                        {% for student_first_name in student_first_names %}
+                        <option value="{{ student_first_name }}">{{ student_first_name }}</option>
+                        {% endfor %}
+                    </select> -->
+        <div class="daniel">
+            <div class="calendly-inline-widget" data-url="https://calendly.com/danielgabe1708/daniel-math-tutoring" style="min-width:320px;height:700px;"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        </div>
+        <div class="tristan">
+            <div class="calendly-inline-widget" data-url="https://calendly.com/seangulham/tristan-math-tutoring" style="min-width:320px;height:700px;"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>\
+        </div>
+    </div>
+    {% else %}
+    <header>
+        <nav class="top">
+            <ul>
+                <li>
+                    <img src="/static/img/menu.svg" alt="" id="hamburger">
+                    <a href="#"><h1>Solvify</h1></a>
+                </li>
+                <li><a href="#"><img src="/static/img/Profile.svg" alt="Profile"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <a href="/signup">Signup</a>
+        <a href="/signin">Signin</a>
+    </div>
+    {% endif %}
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const side = document.querySelector('.side');
+        const btn = document.getElementById('btn');
+        const content = document.querySelector('.content');
+        const mobilemenu = document.querySelector('.mobile-menu');
+        const hamburger = document.querySelector('#hamburger');
+        const back = document.querySelector('#back-btn');
+        const selectElement = document.querySelector("#tutors");
+        const tutorDaniel = document.querySelector(".daniel");
+        const tutorTristan = document.querySelector(".tristan");
+
+        btn.addEventListener('click', function() {
+            // Toggle the 'expanded' class on the sidebar to change its width
+            side.classList.toggle('expanded');
+
+            // Adjust margin-left of the main content when .side is expanded
+            content.style.marginLeft = side.classList.contains('expanded') ? '220px' : '80px';
+        });;
+
+        hamburger.addEventListener('click', function() {
+            mobilemenu.classList.toggle('expanded');
+        });
+
+        back.addEventListener('click', function() {
+            mobilemenu.classList.remove('expanded');
+        });
+
+        selectElement.addEventListener("change", function() {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+            // Hide all tutor elements initially
+            document.querySelectorAll('.content > div').forEach(function(tutor) {
+                tutor.classList.remove('show');
+            });
+
+            // Show the selected tutor element
+            if (selectedOption.value === "daniel") {
+                tutorDaniel.classList.remove("hide");
+                tutorTrsitan.classList.remove("show")
+            }
+
+            if (selectedOption.value === "tristan") {
+                tutorTristan.classList.add("show")
+                tutorDaniel.classList.add("hide")
+            }
+        });
+    });
+</script>
+</html>

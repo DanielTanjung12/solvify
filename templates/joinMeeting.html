@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solvify - Home</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        .message-success {
+            display: flex;
+            padding: 10px;
+            background-color: green;
+            color: white; /* Set text color for better visibility */
+            margin-bottom: 10px;
+            margin-right: 25px;
+        }
+        
+        .message-error {
+            display: flex;
+            padding: 10px;
+            background-color: red;
+            color: white; /* Set text color for better visibility */
+            margin-bottom: 10px;
+            margin-right: 25px;
+        }
+
+        .close-button {
+            margin-left: auto;
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                margin-top: 5em;
+            }
+        }
+
+        body {
+            background-image: url('/static/img/background.png');
+        }
+
+        .content h2 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        {% if role == 'teacher' %}
+        <header>
+            <nav class="top">
+                <ul>
+                    <li>
+                        <img src="/static/img/menu.svg" alt="" id="hamburger">
+                        <a href="/"><img src="/static/img/logo.png" alt="" height="25px" width="75px" id="logo"></a>
+                    </li>
+                    <li><a href="#"><img src="/static/img/Profile.svg" alt="Profile"></a></li>
+                </ul>
+            </nav>
+            <nav class="mobile-menu">
+                <ul>
+                    <li><img src="/static/img/back.svg" alt="" id="back-btn"></li>
+                    <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                    <li id="join"><a href="/schedule"><img src="/static/img/clock.svg" alt=""><span style="margin-left: 1em;"></span><span>Scheduled meetings</span></a></li>
+                    <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                    <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+                </ul>
+                <ul>
+                    <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                    <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+                </ul>
+            </nav>
+            <nav class="side">
+                <ul>
+                    <li id="btn"><img src="/static/img/arrow-right.svg" alt=""></li>
+                    <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                    <li id="join"><a href="/schedule"><img src="/static/img/clock.svg" alt=""><span style="margin-left: 1em;"></span><span>Scheduled meetings</span></a></li>
+                    <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                    <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+                </ul>
+                <ul>
+                    <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                    <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <!-- {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message:</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %} -->
+            {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+                <strong>Message: </strong>&nbsp;{{ message }}
+                <button class="close-button" aria-label="Close alert" type="button" data-close id="dismissButton">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            <br>
+            <div class="meetings">
+                <div class="heading">
+                    <h1>Upcoming Meetings</h1>
+                </div>
+                <ul>
+                    {% if upcoming_meetings %}
+                        <ul>
+                            {% for meeting in upcoming_meetings %}
+                                <li>
+                                    <a href="#">
+                                        <div class="box">
+                                            <p>{{ meeting.date }} {{ meeting.time }}</p>
+                                            <p>Session between {{ meeting.teacher.first_name }} and {% for student in meeting.students.all %}{{ student.first_name }} {{ student.last_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                            <div class="profile">
+                                                <img src="/static/img/Profile.svg" alt="">
+                                                <p>{{ meeting.teacher.first_name }} {{ meeting.teacher.last_name }}</p>
+                                            </div>
+                                            <p>Zoom link: <a href="{{ meeting.zoom_link }}">Click here</a></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No upcoming meetings.</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% elif role == 'student' %}
+        <header>
+            <nav class="top">
+                <ul>
+                    <li>
+                        <img src="/static/img/menu.svg" alt="" id="hamburger">
+                        <a href="/"><img src="/static/img/logo.png" alt="" height="25px" width="75px" id="logo"></a>
+                    </li>
+                    <li><a href="#"><img src="/static/img/Profile.svg" alt="Profile"></a></li>
+                </ul>
+            </nav>
+            <nav class="mobile-menu">
+                <ul>
+                    <li><img src="/static/img/back.svg" alt="" id="back-btn"></li>
+                    <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                    <li id="book"><a href="/booking"><img src="/static/img/Schedule.svg" alt=""><span style="margin-left: 1em;"></span><span>Book a meeting</span></a></li>
+                    <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                    <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+                </ul>
+                <ul>
+                    <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                    <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+                </ul>
+            </nav>
+            <nav class="side">
+                <ul>
+                    <li id="btn"><img src="/static/img/arrow-right.svg" alt=""></li>
+                    <li id="join"><a href="/join"><img src="/static/img/Join.svg" alt=""><span style="margin-left: 1em;"></span><span>Join a meeting</span></a></li>
+                    <li id="book"><a href="/booking"><img src="/static/img/Schedule.svg" alt=""><span style="margin-left: 1em;"></span><span>Book a meeting</span></a></li>
+                    <li id="exericse"><a href="#"><img src="/static/img/Exercise.svg" alt=""><span style="margin-left: 1em;"></span><span>Exercise</span></a></li>
+                    <li id="resources"><a href="#"><img src="/static/img/Resources.svg" alt=""><span style="margin-left: 1em;"></span><span>Resources</span></a></li>
+                </ul>
+                <ul>
+                    <li id="logout"><a href="/signout"><img src="/static/img/Logout.svg" alt=""><span style="margin-left: 1em;"></span><span>Logout</span></a></li>
+                    <li id="settings"><a href="#"><img src="/static/img/Settings.svg" alt=""><span style="margin-left: 1em;"></span><span>Settings</span></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <!-- {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message:</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            {% endfor %} -->
+            {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+                <strong>Message: </strong>&nbsp;{{ message }}
+                <button class="close-button" aria-label="Close alert" type="button" data-close id="dismissButton">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            <br>
+            <div class="meetings">
+                <div class="heading">
+                    <h1>Upcoming Meetings</h1>
+                </div>
+                <ul>
+                    {% if upcoming_meetings %}
+                        {% for meeting in upcoming_meetings %}
+                            <li>
+                                <a href="#">
+                                    <div class="box">
+                                        <p>{{ meeting.date }} {{ meeting.time }}</p>
+                                        <p>Session between {{ meeting.teacher.first_name }} and {% for student in meeting.students.all %}{{ student.first_name }} {{ student.last_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                        <div class="profile">
+                                            <img src="/static/img/Profile.svg" alt="">
+                                            <p>{{ meeting.teacher.first_name }} {{ meeting.teacher.last_name }}</p>
+                                        </div>
+                                        <p>Zoom link: <a href="{{ meeting.zoom_link }}">Click here</a></p>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}    
+                    {% else %}
+                        <p>No upcoming meetings.</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+    <header>
+        <nav class="top">
+            <ul>
+                <li>
+                    <img src="/static/img/menu.svg" alt="" id="hamburger">
+                    <a href="#"><h1>Solvify</h1></a>
+                </li>
+                <li><a href="#"><img src="/static/img/Profile.svg" alt="Profile"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <a href="/signup">Signup</a>
+        <a href="/signin">Signin</a>
+    </div>
+    {% endif %}
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const side = document.querySelector('.side');
+        const btn = document.getElementById('btn');
+        const content = document.querySelector('.content');
+        const mobilemenu = document.querySelector('.mobile-menu');
+        const hamburger = document.querySelector('#hamburger');
+        const back = document.querySelector('#back-btn');
+        const dismissButton = document.getElementById('dismissButton');
+        const flashMessages = document.querySelectorAll('.message-success, .message-error');
+
+        btn.addEventListener('click', function() {
+            // Toggle the 'expanded' class on the sidebar to change its width
+            side.classList.toggle('expanded');
+
+            // Adjust margin-left of the main content when .side is expanded
+            content.style.marginLeft = side.classList.contains('expanded') ? '220px' : '80px';
+        });;
+
+        hamburger.addEventListener('click', function() {
+            mobilemenu.classList.toggle('expanded');
+        });
+
+        back.addEventListener('click', function() {
+            mobilemenu.classList.remove('expanded');
+        });
+
+        dismissButton.addEventListener('click', function() {
+            flashMessages.forEach(function(flashMessage) {
+                flashMessage.style.display = 'none';
+            });
+        });
+    });
+</script>
+</html>

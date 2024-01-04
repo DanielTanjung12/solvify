@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | Solvify</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        body {
+            background-color: #147EFB;
+        }
+        .holder {
+            margin: auto;
+        }
+        .title {
+            display: flex;
+            justify-content: center;
+            padding: 1em 0;
+            h1 {
+                color: white;
+            }
+        }
+        .form {
+            background-color: #EFEFEF;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 1rem;
+            height: fit-content;
+            width: 25em;
+        }
+
+        .form h2 {
+            margin-bottom: 1em;
+        }
+
+        .form form {
+            margin-bottom: 1em;
+        }
+
+        .form input {
+            width: 390px;
+            height: 30px;
+            margin-top: 0.5em;
+            margin-bottom: 1.5em;
+            border-radius: 8px;
+            border: 1px solid black;
+        }
+
+        .form label  {
+            font-size: 17px;
+        }
+
+        .form button {
+            width: 400px;
+            height: 50px;
+            background-color: #808080;
+            color: #EFEFEF;
+            border: 1px solid black;
+            border-radius: 15px;
+        }
+
+        .form a {
+            color: #147EFB;
+        }
+
+        .message-success {
+            display: flex;
+            padding: 10px;
+            background-color: green;
+            color: white; /* Set text color for better visibility */
+        }
+        
+        .message-error {
+            display: flex;
+            padding: 10px;
+            background-color: red;
+            color: white; /* Set text color for better visibility */
+        }
+
+        body {
+            background-image: url('/static/img/background.png');
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %} -->
+
+    {% for message in messages %}
+    <div class="{% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+        <strong>Message: </strong>&nbsp;{{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="holder">
+        <div class="title">
+            <h1>Solvify</h1>
+        </div>
+        <div class="form">
+            <h2>Sign Up</h2>
+            <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <br>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Create A Username (use only letters and numbers)" Required>
+                <br>
+                <label for="fname">First Name</label>
+                <br>
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+                <br>
+                <label for="lname">Last Name</label>
+                <br>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+                <br>
+                <label for="email">Email</label>
+                <br>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email Address" Required>
+                <br>
+                <label for="pass1">Password</label>
+                <br>
+                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
+                <br>
+                <label for="pass2">Confirm Password</label>
+                <br>
+                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password" Required>
+                <br>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="/signin">Login here!</a></p>
+        </div>
+    </div>
+</body>
+</html>
